@@ -36,6 +36,23 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
+     csv
+     yaml
+     syntax-checking
+     markdown
+     erlang
+     elixir
+     (ruby :variable
+           ruby-version-manager `rbenv
+           ruby-enable-ruby-on-rails-support t)
+     ruby-on-rails
+     osx
+     javascript
+     git
+     git
+     shell
+     html
+     react
      ivy
      ;; auto-completion
      ;; better-defaults
@@ -54,7 +71,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(ag)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -126,8 +143,15 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
-                         spacemacs-light)
+   dotspacemacs-themes '(anti-zenburn 
+		   alect-light-alt
+		   solarized-light
+		   solarized-dark
+		   leuven
+		   monokai
+		   zenburn
+		   spacemacs-dark
+		   spacemacs-light)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -259,7 +283,7 @@ values."
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
    ;; (default nil)
-   dotspacemacs-line-numbers nil
+   dotspacemacs-line-numbers t
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
@@ -303,13 +327,59 @@ before packages are loaded. If you are unsure, you should try in setting them in
   )
 
 (defun dotspacemacs/user-config ()
+  (interactive)
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (setq tab-width 2)
+  (setq js-indent-level 2)
+  (setq-default standard-indent 2)
+  (setq-default web-mode-markup-indent-offset 2
+                web-mode-css-indent-offset 2
+                web-mode-code-indent-offset 2
+                web-mode-attr-indent-offset 2)
+  (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+  (add-hook 'focus-out-hook (lambda () (save-some-buffers t)))
+  (add-to-list 'comint-output-filter-functions 'ansi-color-process-output)
+  (add-to-load-path (concat user-emacs-directory "private/lib"))
+  (spacemacs/toggle-truncate-lines-on)
+  (spaceline-toggle-version-control-off)
+  (spaceline-toggle-buffer-size-off)
+  (spaceline-toggle-major-mode-off)
+  (spaceline-toggle-minor-modes-off)
+  (spaceline-toggle-buffer-encoding-abbrev-off)
+  (spaceline-toggle-buffer-position-off)
+  (spaceline-toggle-line-column-off)
+  (spaceline-toggle-hud-off)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ag-highlight-search t)
+ '(ag-ignore-list (quote ("*.min.js" "*.prod.js" "*.debug.js" "*.js.map")))
+ '(ag-reuse-buffers t)
+ '(ahs-case-fold-search nil)
+ '(ahs-default-range (quote ahs-range-whole-buffer))
+ '(ahs-idle-interval 0.25)
+ '(ahs-idle-timer 0 t)
+ '(ahs-inhibit-face-list nil)
+ '(create-lockfiles nil)
+ '(js2-basic-offset 2)
+ '(magit-use-overlays nil)
+ '(neo-toggle-window-keep-p t)
+ '(ring-bell-function (quote ignore) t)
+ '(safe-local-variable-values (quote ((ember-use-pods . t)))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:foreground "#232333" :background "#c0c0c0")))))
