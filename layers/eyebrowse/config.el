@@ -14,7 +14,3 @@
 
 (defvar eyebrowse-display-help t
   "If non-nil additional help is displayed when selecting a workspace.")
-
-;; Prefix commands
-
-(spacemacs/declare-prefix "W" "workspaces")
