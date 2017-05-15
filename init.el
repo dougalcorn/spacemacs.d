@@ -334,17 +334,19 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  (setq tab-width 2)
-  (setq js-indent-level 2)
-  (setq-default standard-indent 2)
-  (setq-default web-mode-markup-indent-offset 2
-                web-mode-css-indent-offset 2
-                web-mode-code-indent-offset 2
-                web-mode-attr-indent-offset 2)
-  (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+
+  ;; don't know why I can't customize this, but here it is
+  (setq-default js-indent-level 2)
+
+  ;; always save all the buffers when spacemacs looses focus
   (add-hook 'focus-out-hook (lambda () (save-some-buffers t)))
+
+  (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
   (add-to-list 'comint-output-filter-functions 'ansi-color-process-output)
+
   (add-to-load-path (concat user-emacs-directory "private/lib"))
+
+  ;; turn off all the noise.
   (spacemacs/toggle-truncate-lines-on)
   (spaceline-toggle-version-control-off)
   (spaceline-toggle-buffer-size-off)
@@ -376,7 +378,14 @@ you should place your code here."
  '(magit-use-overlays nil)
  '(neo-toggle-window-keep-p t)
  '(ring-bell-function (quote ignore) t)
- '(safe-local-variable-values (quote ((ember-use-pods . t)))))
+ '(safe-local-variable-values (quote ((ember-use-pods . t))))
+ '(standard-indent 2)
+ '(tab-width 2)
+ '(web-mode-attr-indent-offset 2)
+ '(web-mode-code-indent-offset 2)
+ '(web-mode-css-indent-offset 2)
+ '(web-mode-enable-auto-quoting nil)
+ '(web-mode-markup-indent-offset 2))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
