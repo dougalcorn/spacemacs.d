@@ -53,6 +53,7 @@ values."
      shell
      html
      react
+     eyebrowse
      ivy
      ;; auto-completion
      ;; better-defaults
